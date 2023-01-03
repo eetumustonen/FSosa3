@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/eetumustonen/FSosa3#readme",
   "dependencies": {
+    "code-formatter": "^0.0.2",
     "express": "^4.18.2"
   },
   "devDependencies": {
