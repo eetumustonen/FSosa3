@@ -1,6 +1,17 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 app.use(express.json())
+
+morgan.token('body', (req, res) => {
+  if(req.method === "POST"){
+    return JSON.stringify(req.body)
+  } else {
+    return null
+  }
+})
+
+app.use(morgan(':method :url :status :res[content-length]  - :response-time ms :body'))
 
 let persons = [
     { 
@@ -24,6 +35,10 @@ let persons = [
     "id": 4
     }
 ]
+
+app.get("/", (req, res) => {
+  res.send("<div><a href=\"/info\">/info</a><br><a href=\"/api/persons\"/>/api/persons</a></div>")
+})
 
 app.get('/info', (request, respond) => {
   const numOfPeople = persons.length
@@ -53,9 +68,7 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
-  console.log(body)
   const randId = Math.floor(Math.random() * 99999)
-  console.log(randId)
 
   if(!body.name || !body.number){
     return response.status(400).json({
