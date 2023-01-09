@@ -6,7 +6,13 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "rd /s build && cd ../FullStack/osa2/puhelinluettelo/ && npm run build && xcopy build\\* C:\\Users\\eetum\\Desktop\\FSosa3\\build /e/h/c/i",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy",    
+    "logs:prod": "fly logs",
+    "open" : "fly open",
+    "debug": "node --inspect index.js"
   },
   "repository": {
     "type": "git",
